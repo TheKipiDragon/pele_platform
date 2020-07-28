@@ -1,0 +1,10 @@
+COMPND    Core,ligand-designer_replace-H2O_5
+HETATM    1  O1  FRG L   1       0.916  -0.501  -0.146  1.00  0.00           O  
+HETATM    2  C1  FRG L   1      -0.354   0.023  -0.015  1.00  0.00           C  
+HETATM    3  H1  FRG L   1      -0.689   0.017   1.054  1.00  0.00           H  
+HETATM    4  H2  FRG L   1      -0.476   1.034  -0.420  1.00  0.00           H  
+HETATM    5  H3  FRG L   1      -1.038  -0.694  -0.551  1.00  0.00           H  
+HETATM    6  H4  FRG L   1       1.641   0.121   0.078  1.00  0.00           H  
+CONECT    1    2    6
+CONECT    2    3    4    5
+END

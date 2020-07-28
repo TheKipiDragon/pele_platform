@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import os
 import yaml
 
@@ -43,6 +43,8 @@ class YamlParser(object):
         self.hbond = data.get(valid_flags["hbond"], [None, None])
         self.test = data.get(valid_flags["test"], None)
         self.pele = data.get(valid_flags["pele"], None)
+        self.frag_library = data.get(valid_flags["frag_library"], None)
+        self.frag_library_core = data.get(valid_flags["frag_library_core"], None)
         self.forcefield = data.get(valid_flags["forcefield"], "OPLS2005")
         self.verbose = data.get(valid_flags["verbose"], None)
         self.anm_freq = data.get(valid_flags["anm_freq"], None)
@@ -87,7 +89,6 @@ class YamlParser(object):
         self.skip_prep = self.no_ppp = data.get(valid_flags["skip_prep"], None)
         self.gaps_ter = data.get(valid_flags["gaps_ter"], None)
         self.charge_ter = data.get(valid_flags["charge_ter"], None)
-        self.mpi_params = data.get(valid_flags["mpi_params"], None)
         self.nonstandard = data.get(valid_flags["nonstandard"], None)
         self.prepwizard = data.get(valid_flags["prepwizard"], None)
         self.box_center = data.get(valid_flags["box_center"], None)
@@ -174,7 +175,6 @@ class YamlParser(object):
         self.schrodinger = data.get(valid_flags["schrodinger"], None)
         self.no_check = data.get(valid_flags["no_check"], False)
         self.cleanup = data.get(valid_flags["cleanup"], False)
-        self.water_empty_selector = data.get(valid_flags["water_empty_selector"], False)
 
         # Metal constraints
         self.permissive_metal_constr = data.get(valid_flags["permissive_metal_constr"], False)
@@ -205,7 +205,7 @@ class YamlParser(object):
         self.protein = data.get(valid_flags["protein"], None)
         self.ligand_pdb = data.get(valid_flags["ligand_pdb"], None)
         self.skip_refinement = data.get(valid_flags["skip_refinement"], None)
-        self.n_waters = data.get(valid_flags["n_waters"], 0)
+        self.n_waters = data.get(valid_flags["n_waters"], 1 if self.ppi else 0)
 
         #Allosteric
         self.allosteric = data.get(valid_flags["allosteric"], None)

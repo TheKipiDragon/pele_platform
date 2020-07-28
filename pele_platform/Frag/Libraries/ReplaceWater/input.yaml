@@ -1,0 +1,4 @@
+frag_core: "1w7h_prep.pdb" #Proteina-ligando1
+frag_ligands: "ReplaceWater.sdf" #Ligando2 crecido
+resname: "3IP" #Proteina ligando el residuo
+test: true #Test

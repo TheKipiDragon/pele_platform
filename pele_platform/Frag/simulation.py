@@ -7,6 +7,7 @@ import pele_platform.Frag.checker as ch
 import pele_platform.Frag.parameters.main as mn
 import pele_platform.Errors.custom_errors as ce
 import frag_pele.main as frag
+import pele_platform.Frag.libraries as lb
 
 
 class FragRunner(mn.FragParameters):
@@ -23,6 +24,8 @@ class FragRunner(mn.FragParameters):
     def _launch(self):
         if self.ligands:  # Full ligands as sdf
             fragment_files = self._prepare_input_file()
+        elif self.frag_library:
+            self.input = lb.main(self.frag_library_core, self.frag_library)
         else:
             fragment_files = None
         self._run()
@@ -37,8 +40,8 @@ class FragRunner(mn.FragParameters):
         shutil.copy(self.control_file, tmp_control_file)
         adaptive = ad.SimulationBuilder("", tmp_control_file, self)
         # Fill to time because we have flags inside flags
-        adaptive.fill_pele_template(self, self.water_object)
-        adaptive.fill_pele_template(self, self.water_object)
+        adaptive.fill_pele_template(self)
+        adaptive.fill_pele_template(self)
         self.control_file = tmp_control_file
         return self.control_file
 
@@ -58,8 +61,9 @@ class FragRunner(mn.FragParameters):
 
     def _run(self):
         if self.frag_run:
-            try:
-                frag.main(self.core_process, self.input, self.gr_steps, self.criteria, self.plop_path, self.spython,
+            #try:
+            print(self.input)
+            frag.main(self.core_process, self.input, self.gr_steps, self.criteria, self.plop_path, self.spython,
                           self.pele_exec, self.control_file, self.license, self.output_folder,
                           self.report_name, "trajectory", self.cluster_folder, self.cpus, self.distcont, self.threshold,
                           self.epsilon, self.condition, self.metricweights,
@@ -69,9 +73,9 @@ class FragRunner(mn.FragParameters):
                           self.rename, self.threshold_clash, self.steering, self.translation_high, self.rotation_high,
                           self.translation_low, self.rotation_low, self.explorative, self.frag_radius,
                           self.sampling_control, self.pele_data, self.pele_documents,
-                          self.only_prepare, self.only_grow, self.no_check, self.debug, usesrun=self.usesrun)
-            except Exception:
-                print("Skipped - FragPELE will not run.")
+                          self.only_prepare, self.only_grow, self.no_check, self.debug)#g, usesrun=self.usesrun)
+            #except Exception:
+                #print("Skipped - FragPELE will not run.")
 
     def _prepare_input_file(self):
         from rdkit import Chem
